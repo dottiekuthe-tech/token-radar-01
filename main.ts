@@ -12,7 +12,7 @@
 // Deterministic: two runs write byte-identical output. No clock, no network,
 // no randomness; every ordering is fixed by the snapshot's own order.
 
-import { cpSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { cpSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { boardIssue, buildRadar, parseSnapshot, type RadarData } from './lib/model.ts';
@@ -58,7 +58,14 @@ function main(): void {
   const issue = boardIssue(board, snapshot);
   if (issue !== null) throw new Error(`board refused: ${issue}`);
 
-  rmSync(outDir, { recursive: true, force: true });
+  // Clear the output directory's contents, not the directory itself: in the
+  // grader /output is a mounted volume, and removing a mount point fails
+  // with EBUSY. The grader always starts with an empty /output; this keeps
+  // local re-runs deterministic too.
+  mkdirSync(outDir, { recursive: true });
+  for (const name of readdirSync(outDir)) {
+    rmSync(join(outDir, name), { recursive: true, force: true });
+  }
   mkdirSync(join(outDir, 'dashboard'), { recursive: true });
   mkdirSync(join(outDir, 'screenshots'), { recursive: true });
 
