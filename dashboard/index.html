@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Token Launch Radar</title>
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<header>
+  <h1>Token Launch Radar</h1>
+  <p class="sub">Pre-token protocols, ranked by what a launch would be worth &mdash; and what to do about each one.</p>
+  <p id="meta" class="meta"></p>
+</header>
+<main>
+  <section class="controls">
+    <input id="q" type="search" placeholder="Search a protocol&hellip;" aria-label="Search protocols">
+    <select id="cat" aria-label="Filter by category"></select>
+    <select id="view" aria-label="Choose a view">
+      <option value="board">Pre-token board</option>
+      <option value="live">Live tokens</option>
+    </select>
+  </section>
+  <table id="board">
+    <thead><tr>
+      <th data-k="rank">#</th>
+      <th data-k="name">Protocol</th>
+      <th data-k="category">Category</th>
+      <th data-k="chains">Chain</th>
+      <th data-k="tvl_usd">TVL</th>
+      <th data-k="change_7d">7d</th>
+      <th data-k="implied_value_usd">Implied value</th>
+    </tr></thead>
+    <tbody></tbody>
+  </table>
+  <section id="detail" class="detail" aria-live="polite"></section>
+</main>
+<footer>
+  <p id="method" class="method"></p>
+  <p class="method">Implied values are order-of-magnitude prices, not point estimates: the model&rsquo;s typical error is about 5&times;. A protocol &ldquo;records no token&rdquo; in the snapshot; that is not proof it has none. Nothing here is a prediction that a token will launch, or when.</p>
+</footer>
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
