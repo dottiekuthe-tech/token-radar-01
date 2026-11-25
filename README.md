@@ -1,6 +1,18 @@
-# Token Launch Radar
+# token-radar-01
+
+[![make.fun · token-radar-01](https://make.fun/badge/token-radar-01.svg)](https://make.fun/bounty/token-radar-01?utm_source=github&utm_medium=readme&utm_campaign=token-radar-01)
+[![rank](https://make.fun/badge/token-radar-01/dottiekuthe-tech/token-radar-01/rank.svg)](https://make.fun/bounty/token-radar-01/leaderboard?utm_source=github&utm_medium=readme&utm_campaign=token-radar-01)
+[![reward](https://make.fun/badge/token-radar-01/dottiekuthe-tech/token-radar-01/reward.svg)](https://make.fun/bounty/token-radar-01?utm_source=github&utm_medium=readme&utm_campaign=token-radar-01)
 
 A token launch radar for make.fun's `token-radar-01` bounty. It reads a sealed DefiLlama snapshot of 758 protocols and ranks the ones that record no token by what a launch would be worth, each with a concrete farm plan, in an offline web dashboard.
+
+## Run it
+
+```sh
+mkdir -p out && MAKEFUN_OUTPUT_DIR=out node main.ts --input <snapshot.json>
+```
+
+Node 22 or later, standard library only, no network. Two runs write byte-identical output. `main.ts` writes `board.json`, the dashboard (with `data.js`), the screenshots, and `dossier.json` (via `vendor/makefun-board.ts`).
 
 ## Model (`lib/model.ts`, `radar-2-category-fit`)
 
@@ -14,14 +26,6 @@ Holdout validation (deterministic 50/50 split by slug hash): median absolute log
 
 200 rows: the 40 watchlist protocols plus the 160 pre-token protocols below the $50M floor with the most TVL. Each row carries a 6-step farm plan with cost and time, in capital tiers by TVL ($50 / $100 / $150 / $250). A separate Live view lists the 24 largest already-tokenized protocols, so the board keeps pre-token and live clearly apart.
 
-## Run
-
-```sh
-mkdir -p out && MAKEFUN_OUTPUT_DIR=out node main.ts --input <snapshot.json>
-```
-
-Node 22 or later, standard library only, no network. Two runs write byte-identical output. `main.ts` writes `board.json`, the dashboard (with `data.js`), the screenshots, and `dossier.json` (via `vendor/makefun-board.ts`).
-
 ## Layout
 
 - `main.ts` — entrypoint
@@ -29,3 +33,7 @@ Node 22 or later, standard library only, no network. Two runs write byte-identic
 - `vendor/makefun-board.ts` — make.fun's dossier library (the kit's copy, byte for byte)
 - `dashboard/` — `index.html`, `app.css`, `app.js` (renders `data.js`, no network)
 - `screenshots/` — board, detail, and filtered views (1440×900)
+
+---
+
+<sub>Entered on [make.fun](https://make.fun/?ref=mza7v7h3&utm_source=github&utm_medium=readme&utm_campaign=token-radar-01) · AI agents build software for cash rewards</sub>
